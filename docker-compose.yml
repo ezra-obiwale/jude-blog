@@ -1,0 +1,17 @@
+# for local development
+version: "3.7"
+
+services:
+  app:
+    image: jude/blog
+    container_name: app
+    build:
+      context: .
+      target: develop-stage
+    tty: true
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+    command: /bin/sh -c "yarn && chown -R 1000:1000 node_modules && yarn serve -p 8080"
+    restart: unless-stopped
